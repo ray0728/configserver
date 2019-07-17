@@ -1,0 +1,29 @@
+language: java
+jdk:
+- oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2"
+sudo: required
+services:
+- docker
+notifications:
+  email:
+  - 51101661@qq.com
+  on_success: always
+  on_failure: always
+branches:
+  only:
+  - master
+env:
+  global:
+  - secure: uDKW1bKDDjVxtYsiV5oiCi5SCUwlvLODlrJ5YBZENwASeWGLNLTezj0yFOT75OqOR7nWL959Bu/nQpr5qAk20rrWIpkZQFmNn0QBs7iMxceVDptLkBelwJ+m7H5hsbNwy3kl4q58mnIX8xFki3KUBlGw+psK1zlaAzRrSeHPGlFp3MX03pGZ9xoUuJhvy8wT3e1coIA927Ha3vDHCnI1DDyJeLn8R9M5clO2d0LxT34QeerH4d2yFk4xr/n7av+vcgRBMDaRrgGePX9nVqwxPKiTK073txy/YpAdHErM/zTJMQYOLyARJ2B17IfLCjn5E9EkgTJm9fqchadTMfGsiluRxEg9t6P/ar7w/9zUC7wBOgLV8Gp6srFsXob4v6JmpU9n5Ni09d1trFfSkJu+4lknbKROe8DU9avDmK2NybiFNYJGtKAYRUgUsY97OzP0938kNqUCgZHFCtoCcRPROm/Diz5bWTiehE6ZfmbxoAVPjiJEGkaDPBOqMK3tykH59qU4Z5o9vwB2HXJtKDrIBStf5L21mLrEqUoMEjSG4vT/PFFwEtn3NDj0aqCWiT2JQEu1bayVtCdt4/D1RibxA2UkUxy/Bv3wmckHlWbNyfZ/CcAJN87mOgfVqorAN3JBuPutRBE/q30kSqYNfuOPkcKUcv702yJQNSKzf5dDtPs=
+  - secure: gl68ttb/x8+xFmvrPg015u47AOavqcXEEayl4fzJatZ5f8wtzLJo5hatghYO/CYY7f1sqgXu3LS6PGXjONGAXyOtexh+yTDhGgUXDSlyx79+Ft+UK7+Dhf7CWjiKyDvulAyR8Jr+GRL5pf2hWdja1u/RPBS9XxRgE8uOEt28le3KH2lHo48764kOxj+zAH4m6qfxFhMsiawkcJ/lYBCtc85YjCER9UezH2flAbFzP+wkmFJRqIkFcRQTbfY/i77dNIBHjbLU2+FhNkYLJWGwz5UAwKv0tUWNVUO37VIZeGIeCL1vPbZ3V0pKaqgOOfc+Tt0QWdA2DpbBgypRYgWCAY5ljTCTl2RVbcwSEYdQL2eoDZGJNwnGeDWn451OgbNbbQK2+T4jCvK2KLVpahoGoi0UVRobCECdLcljzBFw1+PVbXVb8C9Qkv1xDZKaNHhG+mvmFplhQKUKNAkOudSaNI6Ey5M/B3Hj3EYNnKmTRT2G+loWdP4EnQiE+ejbQXPUNx+Om5yCb0ktz5/OaX7semGrl0MxTnvDB8HAUIa1dLgDrn7i+ujELFTOqmagEFxHQEIBTvKxxCFlTIYUY3F2Jg+8sFPX53wBe2Ix26Ef/UrCydDnEIInIWUzVedBStpIu9RVXATLyGDm1A/uazwcPVvKnlWTdYMxq7C17XNGdIo=
+  - secure: Avuszxwv1Vt7yhLW1B4fd5bf7aElJjXpddrTyCqbKhg+4/G72NZ/GRHcD/AWU8JHUvXTY/7CsT3tsHEKYKEktd3ogFKaiYI3V5AcRP+1dQDQSnbI/tPhVPrpRf55is6NlhPhEBlFeXDb0gyXZHK3S4yefVq/FkopIJVdJ56zZXOuLEQnMvZIPosbql+IRHVdO/zRjMevq11CvOA2iZaB4k3bycTZTkD3VP1bVjPC4MzJLmkrocyq2nf8YtmNR5GEkpgD9RwFd3AaBx6PKdTGyifPLOX60EULlvhW6+J966B2n1KRP709k1TKhAkUiOaq9GhOU+/A0OAFFwcizCv/nQYg+UpZR4MZyx1lUI0K8e8NtDku7Pnv17d7ICLWK/j6CAoVbCwD/vJJdOUX4+9fFyDqWkryE1RpRU1DUZeNiBMkxman0jGSiy+xrp7emT/09VrVcUmI/I0Zm0H2gcsyPo/VnV7H+2dj/X7IF3zJ5gBbil5s+VgMf/Nr6HmCR6MENRPC0przdv2LMtG6/wmK3031ljq4+25tNeQDbrHpNG7rIc/o2Y373f58GEchBI4e/wcmm5Ps99oHlOXUc5B1Abn8qFae5iSvKzPG8owrsVZa0M+NiEdV172d4Wmz8xJl+YVrQalStTvaF1LpB4qrfeMm0otosiiNOoB4W6Rl6uQ=
+before_install:
+- export BUILD_NAME=configserver-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
+- export PLATFORM_TEST_NAME="chapter10-platform-tests"
+script:
+- sh travis_scripts/tag_build.sh
+- sh travis_scripts/build_services.sh
+- sh travis_scripts/deploy_to_docker_hub.sh
