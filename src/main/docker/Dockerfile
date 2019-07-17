@@ -1,4 +1,4 @@
-FROM ray/web-jar:1.8.0
+FROM ray0728/web-jar:1.8.0
 RUN mkdir -p /usr/local/server
 ADD @project.build.finalName@.jar /usr/local/server
 ADD run.sh run.sh
